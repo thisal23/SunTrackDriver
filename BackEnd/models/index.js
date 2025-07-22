@@ -122,6 +122,7 @@ module.exports = {
     geoFenceEvent,
     gpsdata,
     gpsDevice,
+    PasswordReset,
     sequelize // Add this line to export sequelize
 }; // Export the models
 

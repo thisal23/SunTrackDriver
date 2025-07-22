@@ -13,13 +13,14 @@ import {
 import 'antd/dist/reset.css';
 import './App.css';
 import NavBar from './components/NavBar';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
 
 const { Header, Content, Footer } = Layout;
 const { useBreakpoint } = Grid;
 
 // Placeholder pages
-const Login = () => <div>Login Page</div>;
-const Signup = () => <div>Signup Page</div>;
 const PasswordReset = () => <div>Password Reset Page</div>;
 const AssignedTrips = () => <div>Assigned Trips Page</div>;
 const Maintenance = () => <div>Maintenance Page</div>;
@@ -47,9 +48,10 @@ function AppLayout() {
       </Header>
       <Content style={{ margin: 0, padding: 0, minHeight: 'calc(100vh - 120px)', background: '#fff', width: '100vw', maxWidth: '100vw', overflowX: 'hidden' }}>
         <Routes>
+          <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/reset-password" element={<PasswordReset />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/trips" element={<AssignedTrips />} />
           <Route path="/maintenance" element={<Maintenance />} />
           <Route path="/profile" element={<Profile />} />
