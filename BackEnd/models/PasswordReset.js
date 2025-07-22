@@ -21,10 +21,11 @@ const PasswordReset = sequelize.define('passwordreset', {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
     },
-    otpCode: {
+    otp: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    
     expiresAt: {
         type: DataTypes.DATE,
         allowNull: false,
