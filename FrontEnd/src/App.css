@@ -1,7 +1,7 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
   text-align: center;
 }
 
@@ -68,7 +68,7 @@
   background: #fff;
   padding: 2.5rem 2rem 2rem 2rem;
   border-radius: 16px;
-  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08);
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.08);
   width: 100%;
   max-width: 370px;
   display: flex;
