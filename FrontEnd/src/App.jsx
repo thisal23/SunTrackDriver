@@ -16,6 +16,7 @@ import NavBar from './components/NavBar';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
+import AssignTrips from './pages/AssignTrips';
 
 const { Header, Content, Footer } = Layout;
 const { useBreakpoint } = Grid;
@@ -52,6 +53,7 @@ function AppLayout() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/assign-trips" element={<AssignTrips />} />
           <Route path="/trips" element={<AssignedTrips />} />
           <Route path="/maintenance" element={<Maintenance />} />
           <Route path="/profile" element={<Profile />} />
