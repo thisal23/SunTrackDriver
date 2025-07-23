@@ -4,13 +4,14 @@ const cors = require('cors');
 require('dotenv').config();
 const db = require('../config/db');
 const authRoutes = require('../controllers/authController');
-
+const tripsRoutes = require('../Routes/trips');
 const app = express();
 const PORT = process.env.PORT || 8000;
 
 app.use(cors());
 app.use(express.json());
 app.use('/api/auth', authRoutes);
+app.use('/api/driver-trips', tripsRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello from updated API (server.js)!');
@@ -22,6 +23,9 @@ app.get('/users', (req, res) => {
         res.json(results);
     });
 });
+
+
+
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
