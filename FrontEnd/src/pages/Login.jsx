@@ -14,7 +14,7 @@ const Login = () => {
     try {
       const res = await axios.post('/auth/login', { email, password });
       localStorage.setItem('token', res.data.token);
-      navigate('/dashboard');
+      navigate('/assign-trips');
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     }
