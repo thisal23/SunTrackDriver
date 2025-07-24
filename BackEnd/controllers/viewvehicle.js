@@ -4,7 +4,7 @@ const sequelize = require('../config/db');
 const getDriverTrips = async (req, res) => {
   try {
     const userId = req.user?.id;
-
+    console.log("Logged-in user ID:", userId); // 👈 Add this line
     if (!userId) {
       return res.status(401).json({ message: 'Unauthorized: Missing user ID' });
     }
