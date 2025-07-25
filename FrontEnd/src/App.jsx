@@ -20,6 +20,7 @@ import Maintenance from './pages/maintenance';
 import VehicleDocs from './pages/vehicleDoc';
 import Profile from './pages/Profile';
 import TripMap from './pages/TripMap';
+import AssignTrips from './pages/AssignTrips';
 
 const { Header, Content, Footer } = Layout;
 const { useBreakpoint } = Grid;
@@ -52,6 +53,7 @@ function AppLayout() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/assign-trips" element={<AssignTrips />} />
           <Route path="/trips" element={<AssignedTrips />} />
           <Route path="/maintenance" element={<Maintenance />} />
           <Route path="/profile" element={<Profile />} />
