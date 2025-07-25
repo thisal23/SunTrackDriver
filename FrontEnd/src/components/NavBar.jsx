@@ -41,9 +41,8 @@ const NavBar = ({ selectedKey }) => {
           placement="left"
           onClose={() => setDrawerOpen(false)}
           open={drawerOpen}
-          bodyStyle={{ padding: 0, background: '#001529' }}
+          styles={{ body: { padding: 0, background: '#001529' } ,header: { background: '#001529' } }}
           width="100vw"
-          headerStyle={{ background: '#001529' }}
           style={{ background: '#001529' }}
         >
           <Menu

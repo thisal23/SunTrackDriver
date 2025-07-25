@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Alert, Spin, message } from 'antd';
 import axios from 'axios';
+import NavBar from '../components/NavBar';
 
 // Helper to check if a date is within 30 days from now
 function isNearExpiry(dateStr) {
@@ -38,7 +39,8 @@ const VehicleDoc = ({ vehicleId = 1 }) => { // Default vehicleId for demo
   if (isNearExpiry(doc.ecoExpireDate)) notifications.push('Eco Test is near expiry!');
 
   return (
-    <div style={{ maxWidth: 500}}>
+    <div>
+      <NavBar />
       <h2>Vehicle Document Details</h2>
       {notifications.length > 0 && (
         <Alert

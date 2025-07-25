@@ -19,6 +19,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import Maintenance from './pages/maintenance';
 import VehicleDocs from './pages/vehicleDoc';
 import Profile from './pages/Profile';
+import TripMap from './pages/TripMap';
 
 const { Header, Content, Footer } = Layout;
 const { useBreakpoint } = Grid;
@@ -26,7 +27,6 @@ const { useBreakpoint } = Grid;
 // Placeholder pages
 const PasswordReset = () => <div>Password Reset Page</div>;
 const AssignedTrips = () => <div>Assigned Trips Page</div>;
-const TripMap = () => <div>Trip Route Map Page</div>;
 
 const menuItems = [
   { key: '/trips', icon: <CarOutlined />, label: <Link to="/trips">Assigned Trips</Link> },
