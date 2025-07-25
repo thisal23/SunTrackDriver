@@ -37,7 +37,7 @@ LEFT JOIN
     vehiclemodels vm ON v.modelId = vm.id
 WHERE 
     u.id = :userId
-    AND t.status = 'pending'
+    
 ORDER BY 
     t.date DESC, t.suggestStartTime;`,
       {
