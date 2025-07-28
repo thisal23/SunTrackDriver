@@ -27,7 +27,6 @@ const { useBreakpoint } = Grid;
 
 // Placeholder pages
 const PasswordReset = () => <div>Password Reset Page</div>;
-const AssignedTrips = () => <div>Assigned Trips Page</div>;
 
 const menuItems = [
   { key: '/trips', icon: <CarOutlined />, label: <Link to="/trips">Assigned Trips</Link> },
@@ -54,7 +53,7 @@ function AppLayout() {
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/assign-trips" element={<AssignTrips />} />
-          <Route path="/trips" element={<AssignedTrips />} />
+          <Route path="/trips" element={<AssignTrips />} />
           <Route path="/maintenance" element={<Maintenance />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/vehicle-docs" element={<VehicleDocs />} />
