@@ -16,6 +16,10 @@ import NavBar from './components/NavBar';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
+import Maintenance from './pages/maintenance';
+import VehicleDocs from './pages/vehicleDoc';
+import Profile from './pages/Profile';
+import TripMap from './pages/TripMap';
 import AssignTrips from './pages/AssignTrips';
 
 const { Header, Content, Footer } = Layout;
@@ -23,11 +27,6 @@ const { useBreakpoint } = Grid;
 
 // Placeholder pages
 const PasswordReset = () => <div>Password Reset Page</div>;
-const AssignedTrips = () => <div>Assigned Trips Page</div>;
-const Maintenance = () => <div>Maintenance Page</div>;
-const Profile = () => <div>Profile Details Page</div>;
-const VehicleDocs = () => <div>Vehicle Documents State Page</div>;
-const TripMap = () => <div>Trip Route Map Page</div>;
 
 const menuItems = [
   { key: '/trips', icon: <CarOutlined />, label: <Link to="/trips">Assigned Trips</Link> },
@@ -43,7 +42,7 @@ function AppLayout() {
   const selectedKey = menuItems.find(item => location.pathname.startsWith(item.key))?.key || '/trips';
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Header style={{ background: '#001529', padding: 0, position: 'relative', display: 'flex', alignItems: 'center' }}>
+      <Header style={{ background: '#001529', padding: 0, display: 'flex', alignItems: 'center' }}>
         <div style={{ color: '#fff', fontWeight: 700, fontSize: 20, marginLeft: 56 }}>Driver</div>
         <NavBar selectedKey={selectedKey} />
       </Header>
@@ -54,7 +53,7 @@ function AppLayout() {
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/assign-trips" element={<AssignTrips />} />
-          <Route path="/trips" element={<AssignedTrips />} />
+          <Route path="/trips" element={<AssignTrips />} />
           <Route path="/maintenance" element={<Maintenance />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/vehicle-docs" element={<VehicleDocs />} />

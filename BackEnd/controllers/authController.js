@@ -6,7 +6,7 @@ const { User, DriverDetail, PasswordReset, Role } = require('../models');
 const router = express.Router();
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '86400';
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '1d';
 const EMAIL_USER = process.env.EMAIL_USER;
 const EMAIL_PASS = process.env.EMAIL_PASS;
 
