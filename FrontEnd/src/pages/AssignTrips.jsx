@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { FaCheckCircle, FaTimesCircle, FaClock, FaPlayCircle, FaFlag, FaCalendarDay, FaExclamationCircle } from 'react-icons/fa';
+import { FaCheckCircle, FaTimesCircle, FaClock, FaPlayCircle, FaFlag, FaCalendarDay, FaExclamationCircle } from "react-icons/fa";
+
 import './AssignTrips.css';
 
 const AssignTrips = () => {
