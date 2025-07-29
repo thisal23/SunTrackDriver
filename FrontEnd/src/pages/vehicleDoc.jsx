@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Alert, Spin, message, Select } from 'antd';
 import axios from '../config/axiosConfig';
-import NavBar from '../components/NavBar';
 
 const { Option } = Select;
 
@@ -56,15 +55,20 @@ const VehicleDoc = () => {
   }, [selectedVehicleId]);
 
   return (
-    <div>
-      <NavBar />
-      <h2>Vehicle Document Details</h2>
+    <div style={{ 
+      padding: '15px',
+      paddingTop: '30px',
+      paddingRight: '20px',
+      maxWidth: '1200px', 
+      margin: '0 auto'
+    }}>
+      <h2 style={{ fontSize: '28px', marginBottom: '30px', textAlign: 'center' }}>Vehicle Document Details</h2>
       <div style={{ marginBottom: 16 }}>
         {loadingVehicles ? (
           <Spin />
         ) : (
           <Select
-            style={{ width: 250 }}
+            style={{ width: '100%', maxWidth: '250px' }}
             placeholder="Select Vehicle"
             value={selectedVehicleId}
             onChange={setSelectedVehicleId}
@@ -96,21 +100,21 @@ const VehicleDoc = () => {
               />
             );
           })()}
-          <Card title="License">
-            <p>ID: {doc.licenseId}</p>
-            <p>Last Update: {doc.licenseLastUpdate}</p>
-            <p>Expire Date: {doc.licenseExpireDate}</p>
+          <Card title="License" styles={{ body: { padding: '12px 20px' } }}>
+            <p style={{ margin: '8px 0', lineHeight: '1.4' }}>ID: {doc.licenseId}</p>
+            <p style={{ margin: '8px 0', lineHeight: '1.4' }}>Last Update: {doc.licenseLastUpdate}</p>
+            <p style={{ margin: '8px 0', lineHeight: '1.4' }}>Expire Date: {doc.licenseExpireDate}</p>
           </Card>
-          <Card title="Insurance" style={{ marginTop: 16 }}>
-            <p>No: {doc.insuranceNo}</p>
-            <p>Type: {doc.insuranceType}</p>
-            <p>Last Update: {doc.insuranceLastUpdate}</p>
-            <p>Expire Date: {doc.insuranceExpireDate}</p>
+          <Card title="Insurance" style={{ marginTop: 16 }} styles={{ body: { padding: '12px 20px' } }}>
+            <p style={{ margin: '8px 0', lineHeight: '1.4' }}>Number: {doc.insuranceNo}</p>
+            <p style={{ margin: '8px 0', lineHeight: '1.4' }}>Type: {doc.insuranceType}</p>
+            <p style={{ margin: '8px 0', lineHeight: '1.4' }}>Last Update: {doc.insuranceLastUpdate}</p>
+            <p style={{ margin: '8px 0', lineHeight: '1.4' }}>Expire Date: {doc.insuranceExpireDate}</p>
           </Card>
-          <Card title="Eco Test" style={{ marginTop: 16 }}>
-            <p>ID: {doc.ecoId}</p>
-            <p>Last Update: {doc.ecoLastUpdate}</p>
-            <p>Expire Date: {doc.ecoExpireDate}</p>
+          <Card title="Eco Test" style={{ marginTop: 16 }} styles={{ body: { padding: '12px 20px' } }}>
+            <p style={{ margin: '8px 0', lineHeight: '1.4' }}>ID: {doc.ecoId}</p>
+            <p style={{ margin: '8px 0', lineHeight: '1.4' }}>Last Update: {doc.ecoLastUpdate}</p>
+            <p style={{ margin: '8px 0', lineHeight: '1.4' }}>Expire Date: {doc.ecoExpireDate}</p>
           </Card>
         </>
       )}

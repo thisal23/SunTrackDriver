@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, Marker, Polyline, useMap } from "react-leaflet
 import { Select, Spin, Alert, message } from "antd";
 import "leaflet/dist/leaflet.css";
 import apiService from '../config/axiosConfig';
-import NavBar from '../components/NavBar';
 
 const { Option } = Select;
 
@@ -89,7 +88,7 @@ const MapComponent = ({ start, end }) => {
       
       <MapContainer 
         center={SRI_LANKA_CENTER} 
-        zoom={7} 
+        zoom={12} 
         style={{ height: "400px", width: "100%" }}
         maxBounds={SRI_LANKA_BOUNDS}
         maxBoundsViscosity={1.0}
@@ -189,87 +188,90 @@ function TripMap() {
   };
 
   return (
-    <div>
-      <NavBar />
-      <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
-        <h2 style={{ fontSize: '28px', marginBottom: '30px', textAlign: 'center' }}>Trip Route Map - Sri Lanka</h2>
-        
-        {loading ? (
-          <div style={{ textAlign: 'center', padding: '50px' }}>
-            <Spin size="large" />
-            <p style={{ marginTop: '20px' }}>Loading upcoming trips...</p>
+    <div style={{ 
+      padding: '20px',
+      paddingTop: '130px',
+      paddingRight: '30px', // Account for sticky header (64px) + extra space
+      maxWidth: '1200px', 
+      margin: '0 auto'
+    }}>
+      <h2 style={{ fontSize: '28px', marginBottom: '30px', textAlign: 'center' }}>Trip Route Map</h2>
+      
+      {loading ? (
+        <div style={{ textAlign: 'center', padding: '50px' }}>
+          <Spin size="large" />
+          <p style={{ marginTop: '20px' }}>Loading upcoming trips...</p>
+        </div>
+      ) : error ? (
+        <Alert type="error" message={error} style={{ marginBottom: '20px' }} />
+      ) : trips.length === 0 ? (
+        <Alert 
+          type="info" 
+          message="No upcoming trips found" 
+          description="You don't have any upcoming trips assigned at the moment."
+          style={{ marginBottom: '20px' }}
+        />
+      ) : (
+        <>
+          <div style={{ marginBottom: '20px' }}>
+            <label style={{ display: 'block', marginBottom: '8px', fontSize: '16px', fontWeight: 'bold' }}>
+              Select Trip to View:
+            </label>
+            <Select
+              style={{ width: '100%', maxWidth: '600px' }}
+              placeholder="Choose a trip to view on the map"
+              value={selectedTrip?.id}
+              onChange={handleTripSelect}
+              size="large"
+            >
+              {trips.map((trip) => (
+                <Option key={trip.id} value={trip.id}>
+                  {formatTripOption(trip)}
+                </Option>
+              ))}
+            </Select>
           </div>
-        ) : error ? (
-          <Alert type="error" message={error} style={{ marginBottom: '20px' }} />
-        ) : trips.length === 0 ? (
-          <Alert 
-            type="info" 
-            message="No upcoming trips found" 
-            description="You don't have any upcoming trips assigned at the moment."
-            style={{ marginBottom: '20px' }}
-          />
-        ) : (
-          <>
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', marginBottom: '8px', fontSize: '16px', fontWeight: 'bold' }}>
-                Select Trip to View:
-              </label>
-              <Select
-                style={{ width: '100%', maxWidth: '600px' }}
-                placeholder="Choose a trip to view on the map"
-                value={selectedTrip?.id}
-                onChange={handleTripSelect}
-                size="large"
-              >
-                {trips.map((trip) => (
-                  <Option key={trip.id} value={trip.id}>
-                    {formatTripOption(trip)}
-                  </Option>
-                ))}
-              </Select>
-            </div>
 
-            {selectedTrip && (
-              <>
-                <div style={{ 
-                  marginBottom: '24px', 
-                  background: '#f6ffed', 
-                  border: '1px solid #b7eb8f', 
-                  borderRadius: '8px', 
-                  padding: '10px',
-                  fontSize: '16px'
-                }}>
-                  <h3 style={{ marginBottom: '15px', color: '#389e0d' }}>Selected Trip Details</h3>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))'}}>
-                    <p><strong>Date:</strong> {selectedTrip.date ? new Date(selectedTrip.date).toLocaleString() : 'Not specified'}</p>
-                    <p><strong>Start Location:</strong> {selectedTrip.startLocation}</p>
-                    <p><strong>End Location:</strong> {selectedTrip.endLocation}</p>
-                    <p><strong>Status:</strong> <span style={{ 
-                      color: selectedTrip.status === 'Assigned' ? '#1890ff' : 
-                             selectedTrip.status === 'In Progress' ? '#faad14' : 
-                             selectedTrip.status === 'Completed' ? '#52c41a' : '#666'
-                    }}>{selectedTrip.status}</span></p>
-                  </div>
+          {selectedTrip && (
+            <>
+              <div style={{ 
+                marginBottom: '24px', 
+                background: '#f6ffed', 
+                border: '1px solid #b7eb8f', 
+                borderRadius: '8px', 
+                padding: '10px',
+                fontSize: '16px'
+              }}>
+                <h3 style={{ marginBottom: '15px', color: '#389e0d' }}>Selected Trip Details</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))'}}>
+                  <p><strong>Date:</strong> {selectedTrip.date ? new Date(selectedTrip.date).toLocaleString() : 'Not specified'}</p>
+                  <p><strong>Start Location:</strong> {selectedTrip.startLocation}</p>
+                  <p><strong>End Location:</strong> {selectedTrip.endLocation}</p>
+                  <p><strong>Status:</strong> <span style={{ 
+                    color: selectedTrip.status === 'Assigned' ? '#1890ff' : 
+                           selectedTrip.status === 'In Progress' ? '#faad14' : 
+                           selectedTrip.status === 'Completed' ? '#52c41a' : '#666'
+                  }}>{selectedTrip.status}</span></p>
                 </div>
+              </div>
 
-                {selectedTrip.startLat && selectedTrip.startLng && selectedTrip.endLat && selectedTrip.endLng ? (
-                  <MapComponent 
-                    start={{ lat: selectedTrip.startLat, lng: selectedTrip.startLng }} 
-                    end={{ lat: selectedTrip.endLat, lng: selectedTrip.endLng }} 
-                  />
-                ) : (
-                  <Alert 
-                    type="warning" 
-                    message="Map Unavailable" 
-                    description="Location coordinates are not available for this trip."
-                    style={{ marginBottom: '20px' }}
-                  />
-                )}
-              </>
-            )}
-          </>
-        )}
-      </div>
+              {selectedTrip.startLat && selectedTrip.startLng && selectedTrip.endLat && selectedTrip.endLng ? (
+                <MapComponent 
+                  start={{ lat: selectedTrip.startLat, lng: selectedTrip.startLng }} 
+                  end={{ lat: selectedTrip.endLat, lng: selectedTrip.endLng }} 
+                />
+              ) : (
+                <Alert 
+                  type="warning" 
+                  message="Map Unavailable" 
+                  description="Location coordinates are not available for this trip."
+                  style={{ marginBottom: '20px' }}
+                />
+              )}
+            </>
+          )}
+        </>
+      )}
     </div>
   );
 }
