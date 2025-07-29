@@ -42,11 +42,30 @@ function AppLayout() {
   const selectedKey = menuItems.find(item => location.pathname.startsWith(item.key))?.key || '/trips';
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Header style={{ background: '#001529', padding: 0, display: 'flex', alignItems: 'center' }}>
+      <Header style={{ 
+        background: '#001529', 
+        padding: 0, 
+        display: 'flex', 
+        alignItems: 'center',
+        position: 'sticky',
+        top: 0,
+        zIndex: 1000,
+        height: '64px'
+      }}>
         <div style={{ color: '#fff', fontWeight: 700, fontSize: 20, marginLeft: 56 }}>Driver</div>
         <NavBar selectedKey={selectedKey} />
       </Header>
-      <Content style={{ margin: 0, padding: 0, minHeight: 'calc(100vh - 120px)', background: '#fff', width: '100vw', maxWidth: '100vw', overflowX: 'hidden' }}>
+      <Content style={{ 
+        margin: 0, 
+        padding: 0, 
+        minHeight: 'calc(100vh - 120px)', 
+        background: '#fff', 
+        width: '100vw', 
+        maxWidth: '100vw', 
+        overflowX: 'hidden',
+        position: 'relative',
+        zIndex: 1
+      }}>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
