@@ -4,8 +4,8 @@ const cors = require('cors');
 require('dotenv').config();
 const db = require('../config/db');
 const authRoutes = require('../controllers/authController');
-const maintenanceRoutes = require('../routes/maintenanceRoutes');
-const tripsRoutes = require('../routes/trips');
+const maintenanceRoutes = require('../Routes/maintenanceRoutes');
+const tripsRoutes = require('../Routes/trips');
 const app = express();
 const PORT = process.env.PORT || 8000;
 
@@ -17,6 +17,10 @@ app.use('/api/driver-trips', tripsRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello from updated API (server.js)!');
+});
+
+app.get('/api/health', (req, res) => {
+    res.json({ status: 'OK', message: 'Server is running' });
 });
 
 app.get('/users', (req, res) => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, Link } from 'react-router-dom';
-import { Layout, Menu, Drawer, Button, Grid } from 'antd';
+import { Layout, Menu, Drawer, Button, Grid, Spin } from 'antd';
 import {
   MenuOutlined,
   UserOutlined,
@@ -21,6 +21,7 @@ import VehicleDocs from './pages/vehicleDoc';
 import Profile from './pages/Profile';
 import TripMap from './pages/TripMap';
 import AssignTrips from './pages/AssignTrips';
+import { AuthProvider, useAuth } from './context/AuthContext';
 
 const { Header, Content, Footer } = Layout;
 const { useBreakpoint } = Grid;
@@ -39,7 +40,29 @@ const menuItems = [
 
 function AppLayout() {
   const location = useLocation();
+  const { isAuthenticated, loading } = useAuth();
   const selectedKey = menuItems.find(item => location.pathname.startsWith(item.key))?.key || '/trips';
+
+  // Show loading spinner while checking authentication
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Spin size="large" />
+      </div>
+    );
+  }
+
+  // If not authenticated and not on auth pages, redirect to login
+  const isAuthPage = ['/login', '/register', '/forgot-password'].includes(location.pathname);
+  if (!isAuthenticated && !isAuthPage) {
+    return <Navigate to="/login" />;
+  }
+
+  // If authenticated and on auth pages, redirect to trips
+  if (isAuthenticated && isAuthPage) {
+    return <Navigate to="/trips" />;
+  }
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Header style={{ background: '#001529', padding: 0, display: 'flex', alignItems: 'center' }}>
@@ -70,9 +93,11 @@ function AppLayout() {
 
 function App() {
   return (
-    <Router>
-      <AppLayout />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <AppLayout />
+      </Router>
+    </AuthProvider>
   );
 }
 

@@ -44,18 +44,37 @@ const getVehicleDocuments = async (req, res) => {
 
 // GET /api/maintenance/driver-details
 const getDriverDetails = async (req, res) => {
-
-    // Getting driver Id from token
-    const decoded = jwt.verify(req.header('Authorization')?.replace('Bearer ', ''), process.env.JWT_SECRET);
-    const userId = decoded.id;
-    // Getting driver Id from token
-
     try {
+        // Getting driver Id from token (already decoded by authMiddleware)
+        const userId = req.user.id;
+        
         const detail = await DriverDetail.findOne({ where: { userId } });
+        
         if (!detail) return res.status(404).json({ error: 'Driver details not found' });
         res.json(detail);
     } catch (err) {
         res.status(500).json({ error: 'Failed to fetch driver details', details: err.message });
+    }
+};
+
+// POST /api/maintenance/add-driver-details
+const addDriverDetails = async (req, res) => {
+    try {
+        const { nicNo, licenseNo, licenseType, contactNo, bloodGroup, address, userId } = req.body;
+        
+        // Check if driver details already exist for this user
+        const existingDetail = await DriverDetail.findOne({ where: { userId } });
+        if (existingDetail) {
+            return res.status(400).json({ error: 'Driver details already exist for this user' });
+        }
+        
+        const driverDetail = await DriverDetail.create({
+            nicNo, licenseNo, licenseType, contactNo, bloodGroup, address, userId
+        });
+        
+        res.status(201).json(driverDetail);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to add driver details', details: err.message });
     }
 };
 
@@ -64,12 +83,10 @@ const getUpcomingTripVehicles = async (req, res) => {
     try {
         const now = new Date();
 
-        // Getting driver Id from token
-        const decoded = jwt.verify(req.header('Authorization')?.replace('Bearer ', ''), process.env.JWT_SECRET);
-        const userId = decoded.id;
+        // Getting driver Id from token (already decoded by authMiddleware)
+        const userId = req.user.id;
         const driver = await DriverDetail.findOne({ where: { userId } });
         const driverId = driver.id;
-        // Getting driver Id from token
 
         // 1. Find all upcoming trips
         const upcomingTrips = await Trip.findAll({
@@ -111,5 +128,6 @@ module.exports = {
     addServiceInfo,
     getVehicleDocuments,
     getDriverDetails,
+    addDriverDetails,
     getUpcomingTripVehicles,
 };

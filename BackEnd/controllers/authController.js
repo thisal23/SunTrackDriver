@@ -47,7 +47,7 @@ router.post('/register', async (req, res) => {
         });
         // Create driver detail
         await DriverDetail.create({
-            nicNo, licenseNo, licenseType, contactNo, bloodGroup, address, userId: User.id
+            nicNo, licenseNo, licenseType, contactNo, bloodGroup, address, userId: user.id
         });
         res.status(201).json({ message: 'Driver registered successfully' });
     } catch (err) {

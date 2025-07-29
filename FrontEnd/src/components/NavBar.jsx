@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Menu, Drawer, Button, Grid } from 'antd';
 import {
   MenuOutlined,
@@ -10,21 +10,29 @@ import {
   EnvironmentOutlined,
   LoginOutlined,
 } from '@ant-design/icons';
+import { useAuth } from '../context/AuthContext';
 
 const { useBreakpoint } = Grid;
-
-const menuItems = [
-  { key: '/trips', icon: <CarOutlined />, label: <Link to="/trips">Assigned Trips</Link> },
-  { key: '/maintenance', icon: <ToolOutlined />, label: <Link to="/maintenance">Maintenance</Link> },
-  { key: '/profile', icon: <UserOutlined />, label: <Link to="/profile">Profile</Link> },
-  { key: '/vehicle-docs', icon: <FileProtectOutlined />, label: <Link to="/vehicle-docs">Vehicle Docs</Link> },
-  { key: '/trip-map', icon: <EnvironmentOutlined />, label: <Link to="/trip-map">Trip Map</Link> },
-  { key: '/login', icon: <LoginOutlined />, label: <Link to="/login">Logout</Link> },
-];
 
 const NavBar = ({ selectedKey }) => {
   const screens = useBreakpoint();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
+  const menuItems = [
+    { key: '/trips', icon: <CarOutlined />, label: <Link to="/trips">Assigned Trips</Link> },
+    { key: '/maintenance', icon: <ToolOutlined />, label: <Link to="/maintenance">Maintenance</Link> },
+    { key: '/profile', icon: <UserOutlined />, label: <Link to="/profile">Profile</Link> },
+    { key: '/vehicle-docs', icon: <FileProtectOutlined />, label: <Link to="/vehicle-docs">Vehicle Docs</Link> },
+    { key: '/trip-map', icon: <EnvironmentOutlined />, label: <Link to="/trip-map">Trip Map</Link> },
+    { key: '/logout', icon: <LoginOutlined />, label: <span onClick={handleLogout} style={{ cursor: 'pointer' }}>Logout</span> },
+  ];
 
   // Mobile: show Drawer
   if (!screens.md) {
